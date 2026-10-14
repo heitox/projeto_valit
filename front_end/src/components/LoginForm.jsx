@@ -34,7 +34,7 @@ export default function LoginForm() {
       </header>
 
       <section className="login-card">
-        <h1>Login to Valit Platform</h1>
+        <h1>Bem-Vindo | Login</h1>
 
         <form onSubmit={handleSubmit}>
           <label className="login-field">
