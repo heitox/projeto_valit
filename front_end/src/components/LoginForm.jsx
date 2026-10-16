@@ -11,7 +11,7 @@ export default function LoginForm() {
   const [mostrar, setMostrar] = useState(false);
   const [erro, setErro] = useState("");
   const [loading, setLoading] = useState(false);
-
+  
   async function handleSubmit(e) {
     e.preventDefault();
     setErro("");
@@ -83,13 +83,6 @@ export default function LoginForm() {
             {loading ? "Entrando..." : "Entrar"}
           </button>
         </form>
-
-        <a href="#" className="login-link">
-          Esqueci minha senha?
-        </a>
-        <p className="login-registro">
-          Ainda não tem uma conta? <a href="/cadastro">Registre-se</a>.
-        </p>
       </section>
 
       <footer className="login-footer">
