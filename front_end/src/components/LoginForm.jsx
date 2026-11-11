@@ -1,7 +1,9 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { login } from "@/services/authService";
+import { getToken } from "@/services/api";
+import ThemeToggle from "./ThemeToggle";
 import "./login.css";
 
 export default function LoginForm() {
@@ -11,14 +13,18 @@ export default function LoginForm() {
   const [mostrar, setMostrar] = useState(false);
   const [erro, setErro] = useState("");
   const [loading, setLoading] = useState(false);
-  
+
+  // Já logado? Vai direto para os produtos
+  useEffect(() => {
+    if (getToken()) router.replace("/produtos");
+  }, [router]);
+
   async function handleSubmit(e) {
     e.preventDefault();
     setErro("");
     setLoading(true);
     try {
-      const { token } = await login(email, senha);
-      localStorage.setItem("token", token);
+      await login(email, senha);
       router.push("/produtos");
     } catch (err) {
       setErro(err.message);
@@ -29,6 +35,7 @@ export default function LoginForm() {
 
   return (
     <main className="login-page">
+      <ThemeToggle className="login-tema" />
       <header className="login-header">
         <img src="/logo.png" alt="Valit" className="login-logo" />
       </header>
@@ -83,6 +90,10 @@ export default function LoginForm() {
             {loading ? "Entrando..." : "Entrar"}
           </button>
         </form>
+
+        <p className="login-registro">
+          Acesso de funcionários. Sem conta? Peça ao administrador.
+        </p>
       </section>
 
       <footer className="login-footer">

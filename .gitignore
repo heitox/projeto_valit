@@ -1,0 +1,16 @@
+# Dependências e builds
+node_modules/
+.next/
+
+# Variáveis de ambiente (use os arquivos .example)
+.env
+.env.local
+
+# Configuração de ambiente local (scripts e Docker não fazem parte do projeto)
+*.bat
+*.ps1
+docker-compose.yml
+Dockerfile
+.dockerignore
+.gitattributes
+diagnostico.txt

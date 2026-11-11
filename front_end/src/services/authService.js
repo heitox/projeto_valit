@@ -1,12 +1,17 @@
-import { API_URL } from "./api";
+import { api } from "./api";
 
 export async function login(usuario, senha) {
-  const res = await fetch(`${API_URL}/auth/login`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ usuario, senha }),
-  });
-  const data = await res.json();
-  if (!res.ok) throw new Error(data.message || "Erro ao fazer login");
-  return data;
+  const dados = await api("/auth/login", { method: "POST", body: { usuario, senha }, auth: false });
+  localStorage.setItem("token", dados.token);
+  localStorage.setItem("usuario", JSON.stringify(dados.usuario));
+  return dados;
+}
+
+export function buscarUsuarioLogado() {
+  return api("/auth/me");
+}
+
+export function logout() {
+  localStorage.removeItem("token");
+  localStorage.removeItem("usuario");
 }
